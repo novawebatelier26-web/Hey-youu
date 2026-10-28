@@ -1,0 +1,1497 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#dff5ff">
+
+<title>A Little Question For You 💙</title>
+
+<style>
+
+/* ==============================
+   GLOBAL SETTINGS
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background: linear-gradient(
+        135deg,
+        #e9faff,
+        #c5ebff,
+        #e0f6ff
+    );
+    color: #326789;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    z-index: 2;
+}
+
+.page.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==============================
+   OPENING SCREEN
+============================== */
+
+#opening {
+    background: radial-gradient(
+        circle at center,
+        #103c76 0%,
+        #071a3d 48%,
+        #020817 100%
+    );
+
+    overflow: hidden;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    padding: 25px;
+}
+
+.opening-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 450px;
+}
+
+.opening-title {
+    color: #c6efff;
+    font-size: 26px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.opening-subtitle {
+    color: #9bcfee;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* ==============================
+   ANIMATED BLUE HEART
+============================== */
+
+.heart-scene {
+    height: 310px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+}
+
+.heart-glow {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    background: #009dff;
+    filter: blur(75px);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%,100% {
+        transform: scale(0.8);
+        opacity: 0.35;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 0.7;
+    }
+}
+
+.heart-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    animation: heartbeat 1.7s ease-in-out infinite;
+    filter:
+        drop-shadow(0 0 12px #00bfff)
+        drop-shadow(0 0 35px #007bff);
+    z-index: 2;
+}
+
+.blue-heart {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(
+        135deg,
+        #c6f7ff,
+        #39caff 35%,
+        #087cfa 75%,
+        #0754bc
+    );
+
+    transform: rotate(-45deg);
+    top: 28px;
+    left: 15px;
+    border-radius: 8px;
+}
+
+.blue-heart::before,
+.blue-heart::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.blue-heart::before {
+    top: -50px;
+    left: 0;
+}
+
+.blue-heart::after {
+    left: 50px;
+    top: 0;
+}
+
+.heart-shine {
+    position: absolute;
+    width: 45px;
+    height: 13px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    filter: blur(7px);
+    top: 18px;
+    left: 16px;
+    transform: rotate(-35deg);
+    z-index: 3;
+}
+
+@keyframes heartbeat {
+    0%,100% {
+        transform: scale(0.9);
+    }
+
+    15% {
+        transform: scale(1.08);
+    }
+
+    30% {
+        transform: scale(0.94);
+    }
+
+    45% {
+        transform: scale(1.16);
+    }
+
+    65% {
+        transform: scale(0.9);
+    }
+}
+
+/* HEART RINGS */
+
+.heart-ring {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border: 1px solid rgba(54,193,255,0.5);
+    border-radius: 50%;
+    animation: ringExpand 3s ease-out infinite;
+}
+
+.heart-ring:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.heart-ring:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes ringExpand {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(2.3);
+        opacity: 0;
+    }
+}
+
+/* PARTICLES */
+
+.particle {
+    position: absolute;
+    background: #69d9ff;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 10px #29caff;
+    animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+.opening-button {
+    margin-top: 20px;
+    background: linear-gradient(135deg,#6ed7ff,#258fe8);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 35px;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow: 0 0 25px rgba(30,168,255,0.45);
+    animation: buttonGlow 2s infinite alternate;
+}
+
+@keyframes buttonGlow {
+    from {
+        box-shadow: 0 0 10px #159bff;
+    }
+
+    to {
+        box-shadow: 0 0 30px #42cfff;
+    }
+}
+
+/* ==============================
+   FLOATING BACKGROUND HEARTS
+============================== */
+
+.floating-heart {
+    position: fixed;
+    bottom: -40px;
+    color: #69bff0;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.55;
+    }
+
+    80% {
+        opacity: 0.55;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ==============================
+   MAIN CARDS
+============================== */
+
+.card {
+    width: 92%;
+    max-width: 470px;
+    background: rgba(255,255,255,0.88);
+    padding: 32px 22px;
+    margin: 35px auto;
+    border-radius: 28px;
+    text-align: center;
+    border: 2px solid white;
+    box-shadow: 0 15px 45px rgba(49,145,204,0.14);
+}
+
+.card h1 {
+    font-size: 27px;
+    line-height: 1.4;
+    color: #318ac6;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    color: #398fc8;
+    margin: 20px 0;
+}
+
+.card p {
+    line-height: 1.8;
+    margin: 15px 0;
+}
+
+.main-btn {
+    padding: 15px 28px;
+    border-radius: 30px;
+    background: #65bff2;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 12px 5px;
+    box-shadow: 0 5px 15px rgba(45,144,208,0.2);
+}
+
+.main-btn:hover {
+    background: #389cda;
+}
+
+.secondary-btn {
+    background: #e3f2fb;
+    color: #3987b9;
+}
+
+.small-text {
+    font-size: 12px;
+    color: #83a7c0;
+}
+
+/* ==============================
+   QUESTION BUTTONS
+============================== */
+
+.question-area {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    margin-top: 20px;
+}
+
+#yesBtn {
+    position: absolute;
+    top: 45px;
+    left: 8%;
+    background: #55b9f3;
+    padding: 17px 25px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    min-width: 110px;
+}
+
+#noBtn {
+    position: absolute;
+    top: 45px;
+    left: 60%;
+    background: #b4c6d2;
+    padding: 17px 25px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    min-width: 95px;
+    transition: left 0.13s, top 0.13s;
+    touch-action: none;
+}
+
+/* ==============================
+   CALENDAR
+============================== */
+
+.month-title {
+    margin: 25px 0 12px;
+    font-size: 19px;
+    font-weight: bold;
+    color: #328ac4;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7,minmax(0,1fr));
+    gap: 5px;
+}
+
+.day-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #709cba;
+    padding: 8px 0;
+}
+
+.day {
+    padding: 11px 0;
+    background: #e8f7ff;
+    border-radius: 9px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.day.selected {
+    background: #4cb2ed;
+    color: white;
+    font-weight: bold;
+}
+
+.day.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    background: #ddd;
+}
+
+.day.empty {
+    visibility: hidden;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    border: 2px solid #c6e9fc;
+    border-radius: 13px;
+    background: white;
+    font-size: 16px;
+    color: #326789;
+}
+
+/* ==============================
+   LOCATION OPTIONS
+============================== */
+
+.location-option {
+    background: #f0faff;
+    border: 2px solid #d2edfc;
+    border-radius: 15px;
+    padding: 18px 14px;
+    margin: 12px 0;
+    text-align: left;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.location-option.selected {
+    background: #bce8ff;
+    border-color: #4cafe8;
+}
+
+/* ==============================
+   SUMMARY
+============================== */
+
+.summary {
+    text-align: left;
+    background: #effaff;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 25px 0;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.whatsapp-btn {
+    width: 100%;
+    background: #25D366;
+    padding: 17px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 12px 0;
+}
+
+.confetti {
+    position: fixed;
+    top: -30px;
+    z-index: 100;
+    pointer-events: none;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@media(max-width:400px) {
+    .card {
+        padding: 26px 15px;
+    }
+
+    .card h1 {
+        font-size: 24px;
+    }
+
+    .day {
+        padding: 9px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heart-wrapper,
+    .heart-glow,
+    .heart-ring,
+    .floating-heart,
+    .particle {
+        animation-duration: 8s;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="floatingHearts"></div>
+
+<!-- ============================
+     PAGE 1: ANIMATED BLUE HEART
+============================= -->
+
+<section id="opening" class="page active">
+
+    <div id="particles"></div>
+
+    <div class="opening-content">
+
+        <h1 class="opening-title">
+            Hey you... 💙
+        </h1>
+
+        <p class="opening-subtitle">
+            I made a little something for you.
+            <br>
+            Just watch this for a second...
+        </p>
+
+        <div class="heart-scene">
+
+            <div class="heart-glow"></div>
+
+            <div class="heart-ring"></div>
+            <div class="heart-ring"></div>
+            <div class="heart-ring"></div>
+
+            <div class="heart-wrapper">
+
+                <div class="blue-heart"></div>
+
+                <div class="heart-shine"></div>
+
+            </div>
+
+        </div>
+
+        <p class="opening-subtitle">
+            A little blue heart.
+            <br>
+            Just for you. 🥹
+        </p>
+
+        <button
+            class="opening-button"
+            onclick="showPage('question')"
+        >
+            Continue 💙
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     PAGE 2: THE QUESTION
+============================= -->
+
+<section id="question" class="page">
+
+    <div class="card">
+
+        <h1>Okay so... 🥹</h1>
+
+        <p>
+            I've been wanting to ask you something.
+        </p>
+
+        <p>
+            Nothing too crazy.
+            <br>
+            Just you, me, some fresh air,
+            and hopefully a really nice conversation.
+        </p>
+
+        <h1>
+            Would you go on a walk with me? 💙
+        </h1>
+
+        <div class="question-area" id="questionArea">
+
+            <button id="yesBtn" onclick="saidYes()">
+                YES 💙
+            </button>
+
+            <button id="noBtn">
+                NO 😭
+            </button>
+
+        </div>
+
+        <p class="small-text">
+            Choose carefully...
+            <br>
+            One of these buttons is a little shy 👀
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     PAGE 3: YES REACTION
+============================= -->
+
+<section id="reaction" class="page">
+
+    <div class="card">
+
+        <h1 style="font-size:38px;">
+            HUH?? 😭💙
+        </h1>
+
+        <h1>
+            YOU SAID YES?!
+        </h1>
+
+        <p>WAIT WAIT WAIT.</p>
+
+        <p>
+            I was actually preparing myself
+            for rejection 😭
+        </p>
+
+        <p>
+            Okay...
+            <br>
+            Act normal.
+            <br>
+            Be cool.
+            <br>
+            Don't panic.
+        </p>
+
+        <h2>
+            AHHHHHH 💙😭
+        </h2>
+
+        <button
+            class="main-btn"
+            onclick="showPage('datePage')"
+        >
+            Okay okay 😂
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     PAGE 4: DATE AND TIME
+============================= -->
+
+<section id="datePage" class="page">
+
+    <div class="card">
+
+        <h1>
+            When are you free? 🗓️💙
+        </h1>
+
+        <p>
+            Pick a day that works for you.
+            <br>
+            I'll make time.
+        </p>
+
+        <div id="calendars"></div>
+
+        <h2>What time? ⏰</h2>
+
+        <select id="timeSelect">
+
+            <option value="">Choose a time</option>
+
+            <option>06:00</option>
+            <option>06:30</option>
+            <option>07:00</option>
+            <option>07:30</option>
+            <option>08:00</option>
+            <option>08:30</option>
+            <option>09:00</option>
+            <option>09:30</option>
+            <option>10:00</option>
+            <option>10:30</option>
+            <option>11:00</option>
+            <option>11:30</option>
+            <option>12:00</option>
+            <option>12:30</option>
+            <option>13:00</option>
+            <option>13:30</option>
+            <option>14:00</option>
+            <option>14:30</option>
+            <option>15:00</option>
+            <option>15:30</option>
+            <option>16:00</option>
+            <option>16:30</option>
+            <option>17:00</option>
+            <option>17:30</option>
+            <option>18:00</option>
+            <option>18:30</option>
+            <option>19:00</option>
+            <option>19:30</option>
+            <option>20:00</option>
+
+        </select>
+
+        <button
+            class="main-btn"
+            onclick="nextFromDate()"
+        >
+            Next 💙
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     PAGE 5: MEETING PLACE
+============================= -->
+
+<section id="locationPage" class="page">
+
+    <div class="card">
+
+        <h1>
+            Where should we meet up? 📍💙
+        </h1>
+
+        <p>
+            Pick whichever makes you comfortable.
+        </p>
+
+        <div
+            class="location-option"
+            onclick="chooseLocation('Fourway stop',this)"
+        >
+            1. Fourway stop
+        </div>
+
+        <div
+            class="location-option"
+            onclick="chooseLocation('Sports for All Ground',this)"
+        >
+            2. Sports for All Ground
+        </div>
+
+        <div
+            class="location-option"
+            onclick="chooseLocation('Come pick me up at my place',this)"
+        >
+            3. Come pick me up at my place
+        </div>
+
+        <div
+            class="location-option"
+            onclick="chooseLocation('Other',this)"
+        >
+            4. Other
+        </div>
+
+        <div id="otherBox" style="display:none;">
+
+            <input
+                type="text"
+                id="otherLocation"
+                placeholder="Where would you like us to meet?"
+                maxlength="150"
+            >
+
+        </div>
+
+        <button
+            class="main-btn secondary-btn"
+            onclick="showPage('datePage')"
+        >
+            Back
+        </button>
+
+        <button
+            class="main-btn"
+            onclick="nextFromLocation()"
+        >
+            Next 💙
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     PAGE 6: FINAL CONFIRMATION
+============================= -->
+
+<section id="summaryPage" class="page">
+
+    <div class="card">
+
+        <h1>
+            So... it's a date?
+            <br>
+            I mean WALK 😭💙
+        </h1>
+
+        <p>
+            Here's everything you picked:
+        </p>
+
+        <div class="summary">
+
+            <strong>💙 Your answer:</strong>
+            <div>YES!</div>
+
+            <br>
+
+            <strong>🗓️ Date:</strong>
+            <div id="summaryDate"></div>
+
+            <br>
+
+            <strong>⏰ Time:</strong>
+            <div id="summaryTime"></div>
+
+            <br>
+
+            <strong>📍 Meeting place:</strong>
+            <div id="summaryLocation"></div>
+
+        </div>
+
+        <p>
+            Now send me your choices
+            so I can stop smiling at my phone
+            and actually plan our walk 😂💙
+        </p>
+
+        <button
+            class="whatsapp-btn"
+            onclick="sendWhatsApp()"
+        >
+            Send to WhatsApp 💚
+        </button>
+
+        <button
+            class="main-btn secondary-btn"
+            onclick="showPage('locationPage')"
+        >
+            Change my answer
+        </button>
+
+        <p class="small-text">
+            WhatsApp will open with your choices
+            already written.
+            <br>
+            Just press Send.
+        </p>
+
+        <p class="small-text">
+            Thank you for saying yes. 💙
+        </p>
+
+    </div>
+
+</section>
+
+<script>
+
+/* ==============================
+   WEBSITE SETTINGS
+============================== */
+
+const WHATSAPP_NUMBER = "27603454416";
+
+let selectedDate = "";
+let selectedTime = "";
+let selectedLocation = "";
+
+/* ==============================
+   PAGE NAVIGATION
+============================== */
+
+function showPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+/* ==============================
+   OPENING BLUE PARTICLES
+============================== */
+
+function createParticle() {
+
+    const opening = document.getElementById("opening");
+
+    if(!opening.classList.contains("active")) {
+        return;
+    }
+
+    const particle = document.createElement("div");
+
+    particle.className = "particle";
+
+    const size = Math.random() * 4 + 2;
+
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.bottom = "-10px";
+
+    particle.style.animationDuration =
+        (4 + Math.random() * 5) + "s";
+
+    document.getElementById("particles").appendChild(particle);
+
+    setTimeout(() => {
+        particle.remove();
+    }, 9500);
+
+}
+
+setInterval(createParticle, 180);
+
+/* ==============================
+   FLOATING BLUE HEARTS
+============================== */
+
+function createFloatingHeart() {
+
+    const opening = document.getElementById("opening");
+
+    if(opening.classList.contains("active")) {
+        return;
+    }
+
+    const heart = document.createElement("div");
+
+    heart.className = "floating-heart";
+    heart.textContent = "💙";
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (12 + Math.random() * 19) + "px";
+
+    const duration = 6 + Math.random() * 6;
+
+    heart.style.animationDuration = duration + "s";
+
+    document.getElementById("floatingHearts").appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, duration * 1000);
+
+}
+
+setInterval(createFloatingHeart, 700);
+
+/* ==============================
+   RUNAWAY NO BUTTON
+============================== */
+
+const noBtn = document.getElementById("noBtn");
+
+const yesBtn = document.getElementById("yesBtn");
+
+const questionArea =
+    document.getElementById("questionArea");
+
+function moveNoButton() {
+
+    const maxX =
+        questionArea.clientWidth - noBtn.offsetWidth;
+
+    const maxY =
+        questionArea.clientHeight - noBtn.offsetHeight;
+
+    let x;
+    let y;
+    let attempts = 0;
+
+    do {
+
+        x = Math.random() * Math.max(0,maxX);
+        y = Math.random() * Math.max(0,maxY);
+
+        attempts++;
+
+    } while (
+
+        attempts < 50 &&
+
+        x < yesBtn.offsetLeft + yesBtn.offsetWidth + 10 &&
+
+        x + noBtn.offsetWidth > yesBtn.offsetLeft - 10 &&
+
+        y < yesBtn.offsetTop + yesBtn.offsetHeight + 10 &&
+
+        y + noBtn.offsetHeight > yesBtn.offsetTop - 10
+
+    );
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+}
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+noBtn.addEventListener("touchstart", function(e) {
+
+    e.preventDefault();
+
+    moveNoButton();
+
+}, {passive:false});
+
+noBtn.addEventListener("click", function(e) {
+
+    e.preventDefault();
+
+    moveNoButton();
+
+});
+
+/* ==============================
+   YES REACTION
+============================== */
+
+function saidYes() {
+
+    showPage("reaction");
+
+    createConfetti();
+
+}
+
+function createConfetti() {
+
+    const symbols = [
+        "💙",
+        "🩵",
+        "✨",
+        "💙",
+        "🎉"
+    ];
+
+    for(let i = 0; i < 50; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        confetti.style.left =
+            Math.random() * 100 + "vw";
+
+        confetti.style.fontSize =
+            (13 + Math.random() * 20) + "px";
+
+        confetti.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+
+    }
+
+}
+
+/* ==============================
+   NOVEMBER / DECEMBER CALENDAR
+============================== */
+
+const calendarYear = 2026;
+
+const months = [
+    {number:10,name:"November"},
+    {number:11,name:"December"}
+];
+
+const weekDays = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+];
+
+function buildCalendars() {
+
+    const container =
+        document.getElementById("calendars");
+
+    container.innerHTML = "";
+
+    const today = new Date();
+
+    today.setHours(0,0,0,0);
+
+    months.forEach(month => {
+
+        const title = document.createElement("div");
+
+        title.className = "month-title";
+
+        title.textContent =
+            month.name + " " + calendarYear;
+
+        container.appendChild(title);
+
+        const calendar = document.createElement("div");
+
+        calendar.className = "calendar";
+
+        weekDays.forEach(name => {
+
+            const label = document.createElement("div");
+
+            label.className = "day-label";
+
+            label.textContent = name;
+
+            calendar.appendChild(label);
+
+        });
+
+        const firstDay =
+            new Date(calendarYear,month.number,1).getDay();
+
+        const daysInMonth =
+            new Date(
+                calendarYear,
+                month.number + 1,
+                0
+            ).getDate();
+
+        for(let i = 0; i < firstDay; i++) {
+
+            const empty = document.createElement("div");
+
+            empty.className = "day empty";
+
+            calendar.appendChild(empty);
+
+        }
+
+        for(let day = 1; day <= daysInMonth; day++) {
+
+            const dateObject =
+                new Date(calendarYear,month.number,day);
+
+            const element = document.createElement("div");
+
+            element.className = "day";
+
+            element.textContent = day;
+
+            const monthText =
+                String(month.number + 1).padStart(2,"0");
+
+            const dayText =
+                String(day).padStart(2,"0");
+
+            const dateValue =
+                calendarYear + "-" + monthText + "-" + dayText;
+
+            if(dateObject < today) {
+
+                element.classList.add("disabled");
+
+            } else {
+
+                if(dateValue === selectedDate) {
+                    element.classList.add("selected");
+                }
+
+                element.addEventListener("click",function() {
+
+                    selectedDate = dateValue;
+
+                    document.querySelectorAll(".day").forEach(d => {
+                        d.classList.remove("selected");
+                    });
+
+                    element.classList.add("selected");
+
+                });
+
+            }
+
+            calendar.appendChild(element);
+
+        }
+
+        container.appendChild(calendar);
+
+    });
+
+}
+
+buildCalendars();
+
+/* ==============================
+   DATE AND TIME VALIDATION
+============================== */
+
+function nextFromDate() {
+
+    selectedTime =
+        document.getElementById("timeSelect").value;
+
+    if(!selectedDate) {
+
+        alert("Pick a date first, please 🥹💙");
+
+        return;
+
+    }
+
+    if(!selectedTime) {
+
+        alert("Don't forget to choose a time 💙");
+
+        return;
+
+    }
+
+    showPage("locationPage");
+
+}
+
+/* ==============================
+   LOCATION SELECTION
+============================== */
+
+function chooseLocation(location,element) {
+
+    selectedLocation = location;
+
+    document.querySelectorAll(".location-option").forEach(option => {
+
+        option.classList.remove("selected");
+
+    });
+
+    element.classList.add("selected");
+
+    const otherBox =
+        document.getElementById("otherBox");
+
+    if(location === "Other") {
+
+        otherBox.style.display = "block";
+
+    } else {
+
+        otherBox.style.display = "none";
+
+    }
+
+}
+
+function nextFromLocation() {
+
+    if(!selectedLocation) {
+
+        alert("Choose where we should meet first 💙");
+
+        return;
+
+    }
+
+    if(selectedLocation === "Other") {
+
+        const custom =
+            document.getElementById("otherLocation").value.trim();
+
+        if(!custom) {
+
+            alert("Tell me where you'd like us to meet 🥹");
+
+            return;
+
+        }
+
+    }
+
+    showSummary();
+
+}
+
+/* ==============================
+   FORMAT DATE
+============================== */
+
+function formatDate(dateString) {
+
+    const parts = dateString.split("-");
+
+    const date = new Date(
+        Number(parts[0]),
+        Number(parts[1])-1,
+        Number(parts[2])
+    );
+
+    return date.toLocaleDateString("en-ZA",{
+
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+
+    });
+
+}
+
+/* ==============================
+   FINAL SUMMARY
+============================== */
+
+function getFinalLocation() {
+
+    if(selectedLocation === "Other") {
+
+        return document.getElementById("otherLocation").value.trim();
+
+    }
+
+    return selectedLocation;
+
+}
+
+function showSummary() {
+
+    document.getElementById("summaryDate").textContent =
+        formatDate(selectedDate);
+
+    document.getElementById("summaryTime").textContent =
+        selectedTime;
+
+    document.getElementById("summaryLocation").textContent =
+        getFinalLocation();
+
+    showPage("summaryPage");
+
+}
+
+/* ==============================
+   WHATSAPP MESSAGE
+============================== */
+
+function sendWhatsApp() {
+
+    const location = getFinalLocation();
+
+    const message =
+`HEY!! 💙😭
+
+I SAID YES TO THE WALK!!
+
+Here are my choices:
+
+💙 My answer: YES!
+
+🗓️ Date: ${formatDate(selectedDate)}
+
+⏰ Time: ${selectedTime}
+
+📍 Meeting place: ${location}
+
+So... I guess we're going on a walk now 😂💙`;
+
+    const url =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.location.href = url;
+
+}
+
+</script>
+
+</body>
+</html>
